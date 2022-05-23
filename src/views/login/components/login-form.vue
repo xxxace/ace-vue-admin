@@ -2,33 +2,87 @@
     <div class="login-form">
         <div class="title">登录 Ace admin vue</div>
         <div class="sub-title">登录 Ace admin vue</div>
-        <div class="error-msg">账号或密码错误</div>
+        <div v-if="errorMsg" class="error-msg">{{ errorMsg }}</div>
 
-        <a-form ref="formRef" :model="form" :style="{ width: '600px' }">
-            <a-form-item field="name" label="Username" :rules="rules">
-                <a-input v-model="form.name" placeholder="please enter your username..." />
+        <a-form ref="formRef" :model="form" :style="{ width: '100%' }" :rules="rules" @submit="(handleSubmit as any)">
+            <a-form-item field="username" hide-label>
+                <a-input v-model="form.username" placeholder="账号" allow-clear>
+                    <template #prefix>
+                        <icon-user />
+                    </template>
+                </a-input>
             </a-form-item>
-            <a-form-item field="post" label="Post">
-                <a-input v-model="form.post" placeholder="please enter your post..." />
+            <a-form-item field="password" hide-label>
+                <a-input-password v-model="form.password" placeholder="密码" allow-clear>
+                    <template #prefix>
+                        <icon-lock />
+                    </template>
+                </a-input-password>
             </a-form-item>
-            <a-form-item field="isRead">
-                <a-checkbox v-model="form.isRead">
-                    I have read the manual
+            <a-form-item field="isRead" hide-label>
+                <a-checkbox v-model="form.isRemenber" @change="(setIsRemenber as any)">
+                    记住密码
                 </a-checkbox>
             </a-form-item>
-            <a-form-item>
-                <a-button @click="handleClick">Set Status</a-button>
+            <a-form-item hide-label>
+                <a-button type="primary" html-type="submit" long :loading="loading">登录</a-button>
             </a-form-item>
         </a-form>
     </div>
 </template>
 
-<script lang="ts" scope></script>
+<script lang="ts" setup>
+import { useUserStore } from '@/store';
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStorage } from '@vueuse/core';
+import { LoginData } from '@/api/user';
+import useLoading from '@/hooks/loading';
+import type { FieldRule, ValidatedError } from '@arco-design/web-vue/es/form/interface';
+
+const errorMsg = ref('')
+const { loading, setLoading } = useLoading()
+const router = useRouter()
+const userStore = useUserStore()
+const loginConfig = useStorage('login-config', { username: '', password: '', isRemenber: false })
+const rules = reactive<Record<string, FieldRule | FieldRule[]>>({
+    'username': [{ required: true, message: '账号不能为空' }],
+    'password': [{ required: true, message: '密码不能为空' }]
+})
+
+const form = reactive({
+    username: loginConfig.value.username,
+    password: loginConfig.value.password,
+    isRemenber: loginConfig.value.isRemenber
+})
+
+const handleSubmit = async ({ values, errors }: {
+    values: LoginData;
+    errors: Record<string, ValidatedError> | undefined;
+}) => {
+    if (!errors) {
+        setLoading(true)
+        try {
+            await userStore.login(values)
+
+        } catch (e) {
+
+        } finally {
+            setLoading(false)
+        }
+    }
+}
+
+const setIsRemenber = (value: boolean) => {
+    loginConfig.value.isRemenber = value
+}
+</script>
 
 <style lang="less" scoped>
 .login-form {
-    width: 380px;
+    width: 340px;
     margin: 0 auto;
+    padding-top: 24vh;
 
     .title {
         color: var(--color-text-1);

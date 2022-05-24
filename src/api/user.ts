@@ -7,6 +7,6 @@ export interface LoginData {
     username: string;
     password: string;
 }
-const login = (data: LoginData) => {
-    return axios.post<LoginRes>('api/user/login', data);
+export const login = (data: LoginData) => {
+    return axios.post<LoginRes>('/api/user/login', data);
 }

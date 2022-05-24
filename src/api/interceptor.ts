@@ -41,7 +41,7 @@ axios.interceptors.response.use(
                 duration: 5 * 1000
             })
 
-            if ([401, 500].includes(res.code) && response.config.url !== 'api/user/info') {
+            if ([401, 500].includes(res.code) && response.config.url !== '/api/user/login' && response.config.url !== '/api/user/info') {
                 Modal.error({
                     title: '登出确认',
                     content: `登录超时,你可以点击取消继续在此页面,或者重新登录`,

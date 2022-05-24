@@ -36,6 +36,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@types/mockjs@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@types/mockjs/-/mockjs-1.0.6.tgz#dafdd5de65156f7aa63eab4e29fa3d532cd95609"
+  integrity sha512-Yu5YlqbYZyqsd6LjO4e8ONJDN9pTSnciHDcRP4teNOh/au2b8helFhgRx+3w8xsTFEnwr9jtfTVJbAx+eYmlHA==
+
 "@types/node@^17.0.35":
   version "17.0.35"
   resolved "https://registry.npmjs.org/@types/node/-/node-17.0.35.tgz"

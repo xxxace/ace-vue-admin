@@ -20,7 +20,7 @@
                 </a-input-password>
             </a-form-item>
             <a-form-item field="isRead" hide-label>
-                <a-checkbox v-model="form.isRemenber" @change="(setIsRemenber as any)">
+                <a-checkbox v-model="form.isRemember" @change="(setisRemember as any)">
                     记住密码
                 </a-checkbox>
             </a-form-item>
@@ -38,13 +38,14 @@ import { useRouter } from 'vue-router';
 import { useStorage } from '@vueuse/core';
 import { LoginData } from '@/api/user';
 import useLoading from '@/hooks/loading';
+import { Message } from '@arco-design/web-vue';
 import type { FieldRule, ValidatedError } from '@arco-design/web-vue/es/form/interface';
 
 const errorMsg = ref('')
 const { loading, setLoading } = useLoading()
 const router = useRouter()
 const userStore = useUserStore()
-const loginConfig = useStorage('login-config', { username: '', password: '', isRemenber: false })
+const loginConfig = useStorage('login-config', { username: '', password: '', isRemember: false })
 const rules = reactive<Record<string, FieldRule | FieldRule[]>>({
     'username': [{ required: true, message: '账号不能为空' }],
     'password': [{ required: true, message: '密码不能为空' }]
@@ -52,8 +53,8 @@ const rules = reactive<Record<string, FieldRule | FieldRule[]>>({
 
 const form = reactive({
     username: loginConfig.value.username,
-    password: loginConfig.value.password,
-    isRemenber: loginConfig.value.isRemenber
+    password: loginConfig.value.isRemember ? loginConfig.value.password : '',
+    isRemember: loginConfig.value.isRemember
 })
 
 const handleSubmit = async ({ values, errors }: {
@@ -63,18 +64,23 @@ const handleSubmit = async ({ values, errors }: {
     if (!errors) {
         setLoading(true)
         try {
-            await userStore.login(values)
-
+            await userStore.login(values);
+            Message.success('登录成功');
+            const { username, password } = values;
+            const { isRemember } = loginConfig.value;
+            errorMsg.value = '';
+            loginConfig.value.username = username;
+            loginConfig.value.password = isRemember ? password : '';
         } catch (e) {
-
+            errorMsg.value = (e as Error).message
         } finally {
             setLoading(false)
         }
     }
 }
 
-const setIsRemenber = (value: boolean) => {
-    loginConfig.value.isRemenber = value
+const setisRemember = (value: boolean) => {
+    loginConfig.value.isRemember = value
 }
 </script>
 

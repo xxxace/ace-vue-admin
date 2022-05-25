@@ -6,7 +6,7 @@
         </div>
         <ul class="right-side">
             <li>
-               <SearchModal/>
+                <SearchModal />
             </li>
             <li>
                 <a-tooltip :content="`点击切换为${theme === 'light' ? '暗黑' : '亮色'}模式`">
@@ -29,11 +29,33 @@
                 </a-tooltip>
             </li>
             <li>
-                <div class="avatar-wrap">
-                    <a-avatar :size="32" shape="square" src="@/assets/avatar.jpg">
-                        <img alt="avatar" src="@/assets/avatar.jpg" />
-                    </a-avatar>
-                </div>
+                <a-dropdown position="br" trigger="hover">
+                    <div class="avatar-wrap">
+                        <a-avatar :size="32" shape="square" src="@/assets/avatar.jpg">
+                            <img alt="avatar" src="@/assets/avatar.jpg" />
+                        </a-avatar>
+                    </div>
+                    <template #content>
+                        <a-doption>
+                            <template #icon>
+                                <icon-user />
+                            </template>
+                            Ace
+                        </a-doption>
+                        <a-doption>
+                            <template #icon>
+                                <icon-settings />
+                            </template>
+                            设置
+                        </a-doption>
+                        <a-doption>
+                            <template #icon>
+                                <icon-export />
+                            </template>
+                            退出登录
+                        </a-doption>
+                    </template>
+                </a-dropdown>
             </li>
         </ul>
     </header>
@@ -110,6 +132,7 @@ const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
                 border-radius: var(--border-radius-medium);
                 background-color: var(--color-fill-4);
                 box-sizing: content-box;
+                cursor: pointer;
             }
         }
 

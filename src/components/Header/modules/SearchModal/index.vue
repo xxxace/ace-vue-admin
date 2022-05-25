@@ -10,7 +10,7 @@
             :align-center="false">
             <template #title>
                 <icon-search size="20" style="color: rgb(var(--primary-6));" />
-                <input type="text">
+                <input ref="input" class="search-input" type="text" autofocus placeholder="输入关键词搜索">
             </template>
             <div>
             </div>
@@ -21,10 +21,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+const input = ref<HTMLInputElement | null>(null)
 const visible = ref(false);
 
 const handleClick = () => {
     visible.value = true;
+    setTimeout(() => input.value?.focus())
 };
 const handleOk = () => {
     visible.value = false;
@@ -32,6 +34,7 @@ const handleOk = () => {
 const handleCancel = () => {
     visible.value = false;
 }
+
 </script>
 
 <style lang="less">
@@ -51,5 +54,13 @@ const handleCancel = () => {
     width: 100%;
     padding: 0 20px;
     text-align: left;
+}
+
+.search-input {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 18px;
+    border: none;
+    outline: none;
 }
 </style>

@@ -1,7 +1,42 @@
 import Mock from "mockjs";
 import { isLogin } from '@/utils/auth';
 import { MockParams } from '@/types/mock';
+import { RouterRaw } from '@/store/modules/router/type';
 import setupMock, { successResponseWrap, failResponseWrap } from "./utils/setup-mock";
+
+export const menuList: RouterRaw[] = [{
+    title: '仪表盘',
+    icon: 'icon-app',
+    path: '/dashboard',
+    component: '@layout/page-view',
+    children: [{
+        title: '工作站',
+        name: 'workplace',
+        path: '/workplace',
+        component: 'dashboard/workplace/index'
+    }, {
+        title: '监控',
+        name: 'monitor',
+        path: '/monitor',
+        component: 'dashboard/monitor/index'
+    }]
+}, {
+    title: '异常页',
+    icon: 'icon-bug',
+    path: '/exception',
+    component: '@layout/page-view',
+    children: [{
+        title: '403',
+        name: '403',
+        path: '/403',
+        component: 'exception/403/index'
+    }, {
+        title: '404',
+        name: '404',
+        path: '/404',
+        component: 'exception/404/index'
+    }]
+}]
 
 setupMock({
     setup() {
@@ -36,6 +71,10 @@ setupMock({
                 return successResponseWrap({ token: 678910 })
             }
             return failResponseWrap(null, '账号或者密码错误');
+        })
+
+        Mock.mock(new RegExp('/api/user/menuList'), () => {
+            return successResponseWrap(menuList);
         })
     }
 })

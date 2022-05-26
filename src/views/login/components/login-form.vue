@@ -71,6 +71,7 @@ const handleSubmit = async ({ values, errors }: {
             errorMsg.value = '';
             loginConfig.value.username = username;
             loginConfig.value.password = isRemember ? password : '';
+            router.push({path:'/'})
         } catch (e) {
             errorMsg.value = (e as Error).message
         } finally {

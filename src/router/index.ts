@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import setupRouterGuard from './guard';
 import appRouters from './routers/index'
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
@@ -17,9 +18,9 @@ const defaultRouter = {
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        appRouters,
         defaultRouter
     ]
 })
 
+setupRouterGuard(router);
 export default router

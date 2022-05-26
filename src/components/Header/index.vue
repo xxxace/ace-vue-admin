@@ -49,7 +49,7 @@
                             设置
                         </a-doption>
                         <a-divider style="margin:0" />
-                        <a-doption>
+                        <a-doption @click="logout">
                             <template #icon>
                                 <icon-export />
                             </template>
@@ -63,8 +63,14 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/store';
 import SearchModal from './modules/SearchModal/index.vue';
+import { Modal } from '@arco-design/web-vue';
 import { useDark, useToggle, useFullscreen } from '@vueuse/core';
+
+const router = useRouter();
+const userStore = useUserStore();
 
 const isDark = useDark({
     selector: 'body',
@@ -82,6 +88,18 @@ const handleToggleTheme = () => {
 }
 
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
+
+const logout = () => {
+    Modal.warning({
+        title: '提示',
+        content: '是否要退出登录？',
+        hideCancel: false,
+        onOk() {
+            userStore.logout();
+            setTimeout(() => router.push({ name: 'login' }), 300);
+        }
+    })
+}
 </script>
 <style lang="less" scoped>
 .ace-header {

@@ -6,6 +6,7 @@ export default function getIndexRouter(list: RouterRaw[]) {
         path: '/',
         name: 'dashboard',
         redirect: '/workplace',
+        component: () => import('../../../components/Layout/index.vue'),
         children: getChildRouters(list),
         meta: {
             title: '仪表盘'
@@ -29,9 +30,7 @@ function getChildRouters(list: RouterRaw[]) {
         if (!component) {
             component = () => import(`../../../views/${e.component}.vue`)
         }
-        component().then(res => {
-            console.log(res)
-        })
+
         let menu = {
             path: e.path,
             name: e.name || e.title,

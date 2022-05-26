@@ -12,7 +12,5 @@ Object.keys(modules).forEach(key => {
 export default {
     name: 'base',
     path: '/',
-    redirect: '/workplace',
-    component: Layout,
-    children: routers
+    component: Layout
 }

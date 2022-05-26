@@ -1,9 +1,11 @@
 <script lang="tsx">
 import { defineComponent, h, compile } from 'vue';
+import { useRouterStore } from '@/store';
 
 export default defineComponent({
     emit: ['collapse'],
     setup() {
+        const routerStore = useRouterStore();
         const renderMenu = () => {
             const nodes = []
             nodes.push(<a-sub-menu

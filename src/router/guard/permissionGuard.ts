@@ -1,11 +1,10 @@
-import { menuList } from '@/mock/user';
 import { getMenuList, login } from '@/api/user';
-import { Router, LocationQueryRaw } from "vue-router";
+import { Router, LocationQueryRaw, LocationQueryValueRaw } from "vue-router";
 import NProgress from 'nprogress';
 import { isLogin } from "@/utils/auth";
 import { useRouterStore } from "@/store";
 import getIndexRouter from './utils/getIndexRouter'
-const whiteList = ['login'];
+const whiteList: string[] = [];
 import { removeToken } from '@/utils/auth';
 
 export default function setupPermissionGuard(router: Router) {
@@ -14,12 +13,15 @@ export default function setupPermissionGuard(router: Router) {
         const routerStore = useRouterStore();
         const documentTitle = (to.meta.title || '') as string;
         document.title = documentTitle;
+
+        if (to.name === 'login') {
+            NProgress.done();
+            next();
+        }
+
         if (isLogin()) {
-            if(to.name === 'login'){
-                NProgress.done();
-                next();
-            }
-            if (routerStore.menuList.length === 0) {
+            console.log(routerStore.MenuList?.length)
+            if (routerStore.MenuList?.length === 0) {
                 try {
                     const { data } = await getMenuList() as { data: any };
                     const indexRouter = getIndexRouter(data);
@@ -28,15 +30,13 @@ export default function setupPermissionGuard(router: Router) {
                     routerStore.setAppMenu(indexRouter);
                     router.addRoute(indexRouter);
                     NProgress.done();
-                    console.log(indexRouter,to.name)
+
                     next({ name: to.name } as LocationQueryRaw);
                 } catch (e) {
-                    console.log(e)
                     removeToken();
                     window.location.reload();
                 }
             } else {
-                console.log(to.name)
                 NProgress.done();
                 next();
             }
@@ -50,7 +50,7 @@ export default function setupPermissionGuard(router: Router) {
             next({
                 name: 'login',
                 query: {
-                    redirect: to.name,
+                    redirect: to.fullPath,
                     ...to.query
                 } as LocationQueryRaw
             });

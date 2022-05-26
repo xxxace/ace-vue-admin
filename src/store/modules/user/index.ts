@@ -1,7 +1,8 @@
 import { login, LoginData } from '@/api/user';
 import { defineStore } from "pinia";
 import { UserState } from "./types";
-import { setToken } from '@/utils/auth';
+import { removeToken, setToken } from '@/utils/auth';
+
 const useUserStore = defineStore('user', {
     state: (): UserState => ({
         name: 'ace',
@@ -22,7 +23,7 @@ const useUserStore = defineStore('user', {
         },
 
         logout() {
-
+            removeToken();
         }
     }
 })

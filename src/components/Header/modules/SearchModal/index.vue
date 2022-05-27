@@ -62,5 +62,11 @@ const handleCancel = () => {
     font-size: 18px;
     border: none;
     outline: none;
+    background-color: transparent;
+    color: var(--color-text-1);
+
+    &::-webkit-input-placeholder {
+        color: var(--color-text-1);
+    }
 }
 </style>

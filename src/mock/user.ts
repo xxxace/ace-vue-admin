@@ -5,8 +5,9 @@ import { RouterRaw } from '@/store/modules/router/type';
 import setupMock, { successResponseWrap, failResponseWrap } from "./utils/setup-mock";
 
 export const menuList: RouterRaw[] = [{
+    name:'dashboard',
     title: '仪表盘',
-    icon: 'icon-app',
+    icon: 'icon-dashboard',
     path: '/dashboard',
     component: '@layout/page-view',
     children: [{
@@ -21,6 +22,7 @@ export const menuList: RouterRaw[] = [{
         component: 'dashboard/monitor/index'
     }]
 }, {
+    name:'exception',
     title: '异常页',
     icon: 'icon-bug',
     path: '/exception',

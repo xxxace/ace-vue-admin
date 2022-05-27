@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import { RouterState } from "./type";
+import { RouteRecordRaw } from "vue-router";
 const useRouterStore = defineStore('router', {
     state: (): RouterState => ({
-        appMenu: {},
+        appMenu: null,
         menuList: []
     }),
 
@@ -16,11 +17,11 @@ const useRouterStore = defineStore('router', {
     },
 
     getters: {
-        AppMenu(state: RouterState) {
-            return state.appMenu || {}
+        AppMenu(state: RouterState): RouteRecordRaw | null {
+            return state.appMenu || null
         },
         MenuList(state: RouterState) {
-            return state.menuList?.map(m=>m)
+            return state.menuList?.map(m => m)
         }
     }
 });

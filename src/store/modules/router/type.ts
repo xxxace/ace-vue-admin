@@ -1,3 +1,4 @@
+import { RouteRecordRaw } from "vue-router";
 export interface RouterRaw {
     title: string;
     name?: string;
@@ -7,7 +8,7 @@ export interface RouterRaw {
     children?: RouterRaw[];
 }
 export interface RouterState {
-    appMenu: {};
+    appMenu: RouteRecordRaw | null;
     menuList: RouterRaw[] | null;
     [key: string]: any
 }

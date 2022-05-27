@@ -1,56 +1,72 @@
 <script lang="tsx">
-import { defineComponent, h, compile } from 'vue';
+import { defineComponent, h, compile, computed, ref } from 'vue';
 import { useRouterStore } from '@/store';
-
+import { useRouter, RouteRecordRaw } from 'vue-router';
+import { listenRouteChange } from '@/router/guard/route-listener';
 export default defineComponent({
     emit: ['collapse'],
     setup() {
+        const router = useRouter()
         const routerStore = useRouterStore();
+        const selectedKey = ref<string[]>([]);
+        const menuRoute = computed(() => {
+            const AppMenu = routerStore.AppMenu
+            if (AppMenu) return routerStore.AppMenu.children || []
+            return []
+        })
+        const goto = (route: RouteRecordRaw) => {
+            router.push({ name: route.name })
+        }
+
+        listenRouteChange((newRoute) => {
+            const key = newRoute.matched[newRoute.matched.length - 1]
+                ?.name as string;
+            selectedKey.value = [key];
+        })
+
         const renderMenu = () => {
-            const nodes = []
-            nodes.push(<a-sub-menu
-                key='0'
-                v-slots={{
-                    icon: () => h(compile('<icon-apps />')),
-                    title: () => h(compile('Navigation 1'))
-                }}
-            >
-                <a-menu-item key='0_0'>a-menu 1</a-menu-item>
-                <a-menu-item key='0_1'>a-menu 2</a-menu-item>
-                <a-menu-item key='0_2' disabled>
-                    a-menu 3
-                </a-menu-item>
-            </a-sub-menu>)
-            nodes.push(<a-sub-menu
-                key='1'
-                v-slots={{
-                    icon: () => h(compile('<icon-bug />')),
-                    title: () => h(compile('Navigation 2'))
-                }}
-            >
-                <a-menu-item key='1_0'>a-menu 4</a-menu-item>
-                <a-menu-item key='1_1'>a-menu 5</a-menu-item>
-                <a-menu-item key='1_2'>a-menu 6</a-menu-item>
-            </a-sub-menu>)
-            nodes.push(<a-sub-menu
-                key='2'
-                v-slots={{
-                    icon: () => h(compile('<icon-bulb />')),
-                    title: () => h(compile('Navigation 3'))
-                }}
-            >
-                <a-menu-item key='2_0'>a-menu 7</a-menu-item>
-                <a-menu-item key='2_1'>a-menu 8</a-menu-item>
-                <a-menu-item key='2_2'>a-menu 9</a-menu-item>
-            </a-sub-menu>)
-            return nodes
+            function traval(_route: RouteRecordRaw[]) {
+                const nodes: any = []
+                if (_route) {
+                    _route.forEach(item => {
+                        let node
+                        const icon = item?.meta?.icon ? () => h(compile(`<${item.meta?.icon}/>`)) : null
+                        if (item.children?.length) {
+                            node = (<a-sub-menu
+                                key={item.name}
+                                v-slots={{
+                                    icon,
+                                    title: () => h(compile(item.meta?.title as string))
+                                }}
+                            >
+                                {traval(item.children)}
+                            </a-sub-menu>)
+                        } else {
+                            node = (
+                                <a-menu-item
+                                    key={item.name}
+                                    v-slots={{ icon }}
+                                    onClick={() => goto(item)}
+                                >
+                                    {h(compile(item.meta?.title as string))}
+                                </a-menu-item>
+                            )
+                        }
+                        nodes.push(node)
+                    })
+                }
+                return nodes
+            }
+
+            return traval(menuRoute.value)
         }
         return () => (
-
             <a-menu
                 showCollapseButton
-                default-open-keys={['0']}
-                default-selected-keys={['0_1']}
+                auto-open={false}
+                auto-open-selected={true}
+                selected-keys={selectedKey.value}
+                level-indent={34}
                 style={{ width: `${200}px`, height: '100%' }}
             >
                 {renderMenu()}

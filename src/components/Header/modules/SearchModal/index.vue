@@ -122,6 +122,7 @@ const clearRecent = (index: 'all' | number) => {
 
 .search-input {
     flex: 1;
+    height: 24px;
     margin-left: 10px;
     font-size: 18px;
     border: none;

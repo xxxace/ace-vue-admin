@@ -10,7 +10,7 @@
             <main class="main">
                 <AceNavMenu />
                 <router-view v-slot="{ Component, route }">
-                    <transition>
+                    <transition mode="out-in">
                         <component :is="Component" :key="route.fullPath" />
                     </transition>
                 </router-view>
@@ -29,6 +29,7 @@ import AceNavMenu from '@/components/NavBar/index.vue';
 
     .header {
         height: 60px;
+        background-color: var(--color-bg-2);
     }
 
     .container {

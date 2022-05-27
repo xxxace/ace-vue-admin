@@ -8,7 +8,7 @@ import './assets/style/less/common.less'
 import '@arco-design/web-vue/dist/arco.css'
 import './api/interceptor'
 import './mock'
-console.log('xxxxxxx')
+
 const app = createApp(App)
 
 app.use(ArcoVue, {})

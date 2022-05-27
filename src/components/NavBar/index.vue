@@ -43,7 +43,7 @@ const goto = (tag: TagProps) => {
     height: 34px;
     padding: 0 0 0 12px;
     border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-bg-1);
+    background-color: var(--color-bg-2);
     justify-content: flex-start;
     align-items: center;
 

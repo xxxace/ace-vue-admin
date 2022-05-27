@@ -6,7 +6,7 @@
             </template>
             搜索
         </a-button>
-        <a-modal v-model:visible="visible" top="12vh" :closable="false" :footer="false" modal-class="my-modal"
+        <a-modal v-model:visible="visible" top="150px" :closable="false" :footer="false" modal-class="my-modal"
             :align-center="false">
             <template #title>
                 <icon-search size="20" style="color: rgb(var(--primary-6));" />
@@ -98,9 +98,8 @@ const clearRecent = (index: 'all' | number) => {
 <style lang="less">
 .arco-modal.my-modal {
     border-radius: 8px !important;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, .1) !important;
+    box-shadow: 2px 8px 20px rgba(0, 0, 0, .1) !important;
 
-    // background-color: aqua !important;
     .arco-modal-header {
         height: 60px !important;
 
@@ -110,7 +109,7 @@ const clearRecent = (index: 'all' | number) => {
     }
 
     .arco-modal-body {
-        padding-top: 8px;
+        padding-top: 18px;
     }
 }
 
@@ -131,32 +130,35 @@ const clearRecent = (index: 'all' | number) => {
     color: var(--color-text-1);
 
     &::-webkit-input-placeholder {
-        color: var(--color-text-1);
+        color: var(--color-text-4);
     }
 }
 
 .result-wrap {
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, calc(50% - 7px));
+    grid-column-gap: 14px;
 }
 
 .result-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: 4px;
     transition: all .2s;
     cursor: pointer;
-    color: var(--color-text-1);
+    color: var(--color-text-2);
 
     .icon {
         min-width: 40px;
+        background-color: var(--color-neutral-3);
     }
 
     .label {
         display: inline-block;
         margin-left: 14px;
-        font-size: 20px;
+        font-size: 16px;
+        font-weight: 400;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -174,11 +176,11 @@ const clearRecent = (index: 'all' | number) => {
 }
 
 .recent-wrap {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 
     .title {
         display: flex;
-        margin-bottom: 3px;
+        margin-bottom: 12px;
         color: var(--color-text-2);
         justify-content: space-between;
     }

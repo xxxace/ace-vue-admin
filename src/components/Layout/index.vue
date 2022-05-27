@@ -8,6 +8,7 @@
                 <AceMenu />
             </aside>
             <main class="main">
+                <AceNavMenu />
                 <router-view v-slot="{ Component, route }">
                     <transition>
                         <component :is="Component" :key="route.fullPath" />
@@ -20,6 +21,7 @@
 <script lang="ts" setup>
 import AceHeader from '@/components/Header/index.vue';
 import AceMenu from '@/components/Menu/index.vue';
+import AceNavMenu from '@/components/NavBar/index.vue';
 </script>
 <style lang="less" scoped>
 .ace-layout {
@@ -40,7 +42,6 @@ import AceMenu from '@/components/Menu/index.vue';
 
         .main {
             flex: 1;
-            padding: 18px 18px 0;
         }
     }
 }

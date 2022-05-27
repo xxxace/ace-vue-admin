@@ -67,7 +67,7 @@ export default defineComponent({
                 auto-open-selected={true}
                 selected-keys={selectedKey.value}
                 level-indent={34}
-                style={{ width: `${200}px`, height: '100%' }}
+                style={{ width: `${240}px`, height: '100%' }}
             >
                 {renderMenu()}
             </a-menu>

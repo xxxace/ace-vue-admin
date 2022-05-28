@@ -4,9 +4,13 @@
             <AceHeader />
         </header>
         <div class="container">
-            <aside class="left-side">
+            <aside v-if="isDesktop" class="left-side">
                 <AceMenu />
             </aside>
+            <a-drawer v-else v-model:visible="drawerVisible" width="252px" placement="left" :header="false"
+                :footer="false" :closable="false">
+                <AceMenu />
+            </a-drawer>
             <main class="main">
                 <AceNavMenu />
                 <router-view v-slot="{ Component, route }">
@@ -14,14 +18,28 @@
                         <component :is="Component" :key="route.fullPath" />
                     </transition>
                 </router-view>
+                <AceFooter />
             </main>
         </div>
     </div>
 </template>
 <script lang="ts" setup>
+import { ref, computed, provide } from 'vue'
+import { useAppStore } from '@/store';
+import useResponsive from '@/hooks/responsive';
 import AceHeader from '@/components/Header/index.vue';
 import AceMenu from '@/components/Menu/index.vue';
 import AceNavMenu from '@/components/NavBar/index.vue';
+import AceFooter from '@/components/Footer/index.vue';
+
+useResponsive(true);
+const appStore = useAppStore();
+const drawerVisible = ref(true);
+const isDesktop = computed(() => appStore.appDevice === 'desktop');
+
+provide('toggleDrawerMenu', () => {
+    drawerVisible.value = !drawerVisible.value;
+})
 </script>
 <style lang="less" scoped>
 .ace-layout {
@@ -42,6 +60,7 @@ import AceNavMenu from '@/components/NavBar/index.vue';
         }
 
         .main {
+            position: relative;
             flex: 1;
         }
     }

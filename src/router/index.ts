@@ -12,7 +12,8 @@ const defaultRouter = {
     component: () => import('@/views/login/index.vue'),
     meta: {
         title: '登录',
-        requiresAuth: true
+        requiresAuth: true,
+        noAffix: true 
     }
 }
 

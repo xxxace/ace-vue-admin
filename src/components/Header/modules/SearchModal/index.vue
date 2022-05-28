@@ -26,7 +26,7 @@
                     </template>
                 </div>
             </div>
-            <div class="result-wrap">
+            <div v-if="routeList.length" class="result-wrap">
                 <template v-for="(item, index) in routeList" :key="item">
                     <div class="result-item" @click="goto(item)">
                         <a-avatar class="icon">{{ index + 1 }}</a-avatar>
@@ -34,6 +34,7 @@
                     </div>
                 </template>
             </div>
+            <a-empty v-else />
         </a-modal>
     </div>
 </template>

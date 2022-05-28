@@ -19,7 +19,7 @@ export default function setupPermissionGuard(router: Router) {
         if (isLogin()) {
             if (to.name === 'login') {
                 NProgress.done();
-                next();
+                next({ path: '/workplace' });
             } else {
                 if (routerStore.MenuList?.length === 0) {
                     try {

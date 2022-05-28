@@ -1,14 +1,15 @@
 <script lang="tsx">
 import { defineComponent, h, compile, computed, ref } from 'vue';
-import { useRouterStore } from '@/store';
+import { useAppStore, useRouterStore } from '@/store';
 import { useRouter, RouteRecordRaw } from 'vue-router';
 import { listenRouteChange } from '@/router/guard/route-listener';
 export default defineComponent({
-    emit: ['collapse'],
     setup() {
-        const router = useRouter()
+        const router = useRouter();
+        const appStore = useAppStore();
         const routerStore = useRouterStore();
         const selectedKey = ref<string[]>([]);
+        const openKey = ref<string[]>([]);
         const menuRoute = computed(() => {
             const AppMenu = routerStore.AppMenu
             if (AppMenu) return routerStore.AppMenu.children || []
@@ -17,14 +18,34 @@ export default defineComponent({
         const goto = (route: RouteRecordRaw) => {
             router.push({ name: route.name })
         }
+        const subMenClick = (key: string) => {
+            if (openKey.value.includes(key)) {
+                openKey.value = []
+            } else {
+                openKey.value = [key]
+            }
+        }
 
-        listenRouteChange((newRoute) => {
-            const key = newRoute.matched[newRoute.matched.length - 1]
-                ?.name as string;
-            selectedKey.value = [key];
+        const collapsed = computed({
+            get() {
+                if (appStore.appDevice === 'desktop') return appStore.appMenuCollapse
+                return false
+            },
+            set(newValue: boolean) {
+                appStore.updateSetting({ menuCollapse: newValue })
+            }
         })
 
-        const renderMenu = () => {
+        listenRouteChange((newRoute) => {
+            const currentKey = newRoute.matched[newRoute.matched.length - 1]
+                ?.name as string;
+            const parentkey = newRoute.matched[newRoute.matched.length - 2]
+                ?.name as string;
+            selectedKey.value = [currentKey];
+            openKey.value = [parentkey]
+        })
+
+        const renderSubMenu = () => {
             function traval(_route: RouteRecordRaw[]) {
                 const nodes: any = []
                 if (_route) {
@@ -62,14 +83,19 @@ export default defineComponent({
         }
         return () => (
             <a-menu
-                showCollapseButton
+                v-model:collapsed={collapsed.value}
+                accordion={false}
                 auto-open={false}
                 auto-open-selected={true}
-                selected-keys={selectedKey.value}
+                auto-scroll-into-view={true}
                 level-indent={34}
-                style={{ width: `${240}px`, height: '100%' }}
+                open-keys={openKey.value}
+                selected-keys={selectedKey.value}
+                showCollapseButton={appStore.device === 'desktop'}
+                style={{ width: `${220}px`, height: '100%' }}
+                onSubMenuClick={subMenClick}
             >
-                {renderMenu()}
+                {renderSubMenu()}
             </a-menu>
         )
     }

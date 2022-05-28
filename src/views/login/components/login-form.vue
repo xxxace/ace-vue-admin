@@ -38,7 +38,7 @@ import { useRouter } from 'vue-router';
 import { useStorage } from '@vueuse/core';
 import { LoginData } from '@/api/user';
 import useLoading from '@/hooks/loading';
-import { Message } from '@arco-design/web-vue';
+import { Notification } from '@arco-design/web-vue';
 import type { FieldRule, ValidatedError } from '@arco-design/web-vue/es/form/interface';
 
 const errorMsg = ref('')
@@ -65,7 +65,11 @@ const handleSubmit = async ({ values, errors }: {
         setLoading(true)
         try {
             await userStore.login(values);
-            Message.success('登录成功');
+            Notification.success({
+                title: '登录成功',
+                content: '欢迎回来!'
+            });
+
             const { username, password } = values;
             const { isRemember } = loginConfig.value;
             errorMsg.value = '';

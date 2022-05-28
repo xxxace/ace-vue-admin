@@ -3,17 +3,18 @@
         <div class="left-size">
             <i class="icon"></i>
             <h1 class="title">Ace admin vue</h1>
+            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="toggleDrawerMenu" />
         </div>
         <ul class="right-side">
             <li>
                 <SearchModal />
             </li>
             <li>
-                <a-tooltip :content="`点击切换为${theme === 'light' ? '暗黑' : '亮色'}模式`">
+                <a-tooltip :content="`点击切换为${isDark ? '亮色' : '暗黑'}模式`">
                     <a-button class="nav-btn" type="outline" shape="circle" @click="handleToggleTheme">
                         <template #icon>
-                            <icon-moon-fill v-if="theme === 'dark'" />
-                            <icon-sun-fill v-else />
+                            <icon-sun-fill v-if="isDark" />
+                            <icon-moon-fill v-else />
                         </template>
                     </a-button>
                 </a-tooltip>
@@ -62,15 +63,18 @@
     </header>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store';
+import { useAppStore, useUserStore } from '@/store';
 import SearchModal from './modules/SearchModal/index.vue';
 import { Modal } from '@arco-design/web-vue';
 import { useDark, useToggle, useFullscreen } from '@vueuse/core';
 
 const router = useRouter();
+const appStore = useAppStore();
 const userStore = useUserStore();
+
+const isDeskTop = computed(() => appStore.appDevice === 'desktop')
 
 const isDark = useDark({
     selector: 'body',
@@ -82,7 +86,6 @@ const isDark = useDark({
 
 const toggleDark = useToggle(isDark);
 
-const theme = ref<'light' | 'dark'>('light');
 const handleToggleTheme = () => {
     toggleDark();
 }
@@ -100,6 +103,8 @@ const logout = () => {
         }
     })
 }
+
+const toggleDrawerMenu = inject('toggleDrawerMenu');
 </script>
 <style lang="less" scoped>
 .ace-header {
@@ -121,11 +126,15 @@ const logout = () => {
         }
 
         .title {
-            margin-left: 10px;
+            margin: 0 10px;
             color: var(--color-text-1);
             font-size: 20px;
             font-weight: 500;
             white-space: nowrap;
+        }
+
+        .toggle-icon {
+            cursor: pointer;
         }
     }
 

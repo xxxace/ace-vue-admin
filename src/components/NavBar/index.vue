@@ -21,7 +21,9 @@ const navBarStore = useNavBarStore();
 const tagList = computed(() => navBarStore.getTagList);
 
 listenRouteChange((newRoute: RouteLocationNormalized) => {
-    navBarStore.updatetagList(newRoute)
+    if (!newRoute.meta.noAffix) {
+        navBarStore.updatetagList(newRoute)
+    }
 })
 
 const handleClose = (tag: TagProps, index: number) => {
@@ -52,7 +54,8 @@ const goto = (tag: TagProps) => {
         margin-right: 8px;
 
         &.active {
-            color: rgb(var(--primary-6));
+            color: #fff;
+            background-color: #165dff;
         }
     }
 }

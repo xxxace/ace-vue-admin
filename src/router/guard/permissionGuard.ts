@@ -8,6 +8,17 @@ const whiteList: string[] = ['login'];
 import { removeToken } from '@/utils/auth';
 import { setRouteEmitter } from './route-listener';
 
+const notFound = {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('../../views/exception/NotFound/index.vue'),
+    meta: {
+        title: '页面未找到',
+        requiresAuth: true,
+        noAffix: true 
+    }
+}
+
 export default function setupPermissionGuard(router: Router) {
     router.beforeEach(async (to, from, next) => {
         setRouteEmitter(to);
@@ -29,6 +40,7 @@ export default function setupPermissionGuard(router: Router) {
                         routerStore.updateMenuList(data);
                         routerStore.setAppMenu(indexRouter);
                         router.addRoute(indexRouter);
+                        router.addRoute(notFound);
                         NProgress.done();
 
                         const redirect = decodeURIComponent((from.query.redirect as string) || to.path);

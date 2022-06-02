@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
-const defaultRouter = {
+const defaultRouters = [{
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/index.vue'),
@@ -15,12 +15,12 @@ const defaultRouter = {
         requiresAuth: true,
         noAffix: true 
     }
-}
+}]
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        defaultRouter
+        ...defaultRouters
     ]
 })
 

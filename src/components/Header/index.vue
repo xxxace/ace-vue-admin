@@ -94,8 +94,10 @@ const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 
 const logout = () => {
     Modal.warning({
+        top: '300px',
         title: '提示',
         content: '是否要退出登录？',
+        alignCenter: false,
         hideCancel: false,
         onOk() {
             userStore.logout();
@@ -164,6 +166,12 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
             }
         }
 
+    }
+}
+
+.arco-modal .arco-modal-simple{
+    :dee(.arco-modal-body){
+        font-size: 30px;
     }
 }
 </style>

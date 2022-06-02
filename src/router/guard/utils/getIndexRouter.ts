@@ -16,8 +16,6 @@ export default function getIndexRouter(list: RouterRaw[]) {
     return indexRouter;
 }
 
-const modules = import.meta.globEager('../../../views/**/*.vue');
-
 function getChildRouters(list: RouterRaw[]) {
     const children: any = [];
 

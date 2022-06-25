@@ -1,11 +1,11 @@
 import Mock from "mockjs";
-import { isLogin } from '@/utils/auth';
-import { MockParams } from '@/types/mock';
-import { RouterRaw } from '@/store/modules/router/type';
-import setupMock, { successResponseWrap, failResponseWrap } from "./utils/setup-mock";
+import {isLogin} from '@/utils/auth';
+import {MockParams} from '@/types/mock';
+import {RouterRaw} from '@/store/modules/router/type';
+import setupMock, {successResponseWrap, failResponseWrap} from "./utils/setup-mock";
 
 export const menuList: RouterRaw[] = [{
-    name:'dashboard',
+    name: 'dashboard',
     title: '仪表盘',
     icon: 'icon-dashboard',
     path: '/dashboard',
@@ -22,7 +22,7 @@ export const menuList: RouterRaw[] = [{
         component: 'dashboard/monitor/index'
     }]
 }, {
-    name:'exception',
+    name: 'exception',
     title: '异常页',
     icon: 'icon-bug',
     path: '/exception',
@@ -38,7 +38,19 @@ export const menuList: RouterRaw[] = [{
         path: '/404',
         component: 'exception/404/index'
     }]
-}]
+}, {
+    name: 'table',
+    title: '表格页',
+    icon: 'icon-nav',
+    path: '/table',
+    component: '@layout/page-view',
+    children: [{
+        title: 'table1',
+        name: 'table1',
+        path: '/table1',
+        component: 'table/table1/index'
+    }]
+}];
 
 setupMock({
     setup() {
@@ -63,14 +75,14 @@ setupMock({
         })
 
         Mock.mock(new RegExp('/api/user/login'), (param: MockParams) => {
-            const { username, password } = JSON.parse(param.body);
+            const {username, password} = JSON.parse(param.body);
             if (!username) return failResponseWrap(null, '账号不能为空');
             if (!password) return failResponseWrap(null, '密码不能为空');
             if (username === 'admin' && password === '123456') {
-                return successResponseWrap({ token: 123456 })
+                return successResponseWrap({token: 123456})
             }
             if (username === 'user' && password === '123456') {
-                return successResponseWrap({ token: 678910 })
+                return successResponseWrap({token: 678910})
             }
             return failResponseWrap(null, '账号或者密码错误');
         })

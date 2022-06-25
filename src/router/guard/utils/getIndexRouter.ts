@@ -25,7 +25,7 @@ function getChildRouters(list: RouterRaw[]) {
             component = () => import('../../../components/Layout/PageView.vue')
         }
 
-        if (!component) {
+        if (e.component&&!component) {
             component = () => import(`../../../views/${e.component}.vue`)
         }
 

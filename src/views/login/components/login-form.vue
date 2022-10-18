@@ -6,14 +6,14 @@
 
         <a-form ref="formRef" :model="form" :style="{ width: '100%' }" :rules="rules" @submit="(handleSubmit as any)">
             <a-form-item field="username" hide-label>
-                <a-input v-model="form.username" placeholder="账号" allow-clear>
+                <a-input v-model="form.username" placeholder="账号:admin" allow-clear>
                     <template #prefix>
                         <icon-user />
                     </template>
                 </a-input>
             </a-form-item>
             <a-form-item field="password" hide-label>
-                <a-input-password v-model="form.password" placeholder="密码" allow-clear>
+                <a-input-password v-model="form.password" placeholder="密码:123456" allow-clear>
                     <template #prefix>
                         <icon-lock />
                     </template>

@@ -1,5 +1,4 @@
 import { successResponseWrap } from './../mock/utils/setup-mock';
-import { resolve } from 'path';
 import axios from "axios";
 import { menuList } from "@/mock/user";
 export interface LoginRes {

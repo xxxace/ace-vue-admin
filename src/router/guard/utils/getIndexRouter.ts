@@ -1,12 +1,15 @@
 import { RouterRaw } from "@/store/modules/router/type";
 
+const modules = import.meta.glob(`../../../views/**/*.vue`);
+const components = import.meta.glob(`../../../components/**/*.vue`);
+
 export default function getIndexRouter(list: RouterRaw[]) {
 
     const indexRouter = {
         path: '/',
         name: 'dashboard',
         redirect: '/workplace',
-        component: () => import('../../../components/Layout/index.vue'),
+        component: components['../../../components/Layout/index.vue'],
         children: getChildRouters(list),
         meta: {
             title: '仪表盘'
@@ -22,11 +25,11 @@ function getChildRouters(list: RouterRaw[]) {
     list.forEach((e: RouterRaw) => {
         let component;
         if (e.component === '@layout/page-view') {
-            component = () => import('../../../components/Layout/PageView.vue')
+            component = components['../../../components/Layout/PageView.vue']
         }
 
         if (e.component&&!component) {
-            component = () => import(`../../../views/${e.component}.vue`)
+            component = modules[`../../../views/${e.component}.vue`]
         }
 
         let menu = {

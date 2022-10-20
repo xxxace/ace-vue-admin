@@ -4,11 +4,10 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import configStyleImportPlugin from './plugin/styleImport'
 
-const base = process.env.NODE_ENV ? '/' : '/'
+// const base = process.env.NODE_ENV ? '/ace-vue-admin/' : '/'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base,
   plugins: [vue(), vueJsx(), configStyleImportPlugin()],
   resolve: {
     alias: [{

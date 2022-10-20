@@ -13,12 +13,12 @@ const defaultRouters = [{
     meta: {
         title: '登录',
         requiresAuth: true,
-        noAffix: true 
+        noAffix: true
     }
 }]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.VITE_MODE === 'production' ? '/ace-vue-admin/' : ''),
     routes: [
         ...defaultRouters
     ]

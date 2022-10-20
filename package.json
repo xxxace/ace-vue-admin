@@ -5,7 +5,8 @@
   "author": "ace",
   "scripts": {
     "dev": "vite --config ./config/vite.config.ts",
-    "build": "vue-tsc --noEmit && vite build --config ./config/vite.config.ts",
+    "build-dev": "vue-tsc --noEmit && vite build --config ./config/vite.config.ts --mode development",
+    "build-prod": "vue-tsc --noEmit && vite build --config ./config/vite.config.ts --mode production",
     "preview": "npm run build && vite preview --host"
   },
   "dependencies": {

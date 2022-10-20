@@ -1,7 +1,8 @@
 import enabled from "../config/enabled";
 
 export default function setupMock({ open, setup }: { open?: boolean, setup: () => void }) {
-    if (open !== false && enabled) setup();
+    // if (open !== false && enabled) setup();
+    setup();
 }
 
 export const successResponseWrap = (data: unknown) => {

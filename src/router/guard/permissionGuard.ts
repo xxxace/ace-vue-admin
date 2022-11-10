@@ -15,13 +15,12 @@ const notFound = {
     meta: {
         title: '页面未找到',
         requiresAuth: true,
-        noAffix: true 
+        noAffix: true
     }
 }
 
 export default function setupPermissionGuard(router: Router) {
     router.beforeEach(async (to, from, next) => {
-        setRouteEmitter(to);
         NProgress.start();
         const routerStore = useRouterStore();
         const documentTitle = (to.meta.title || '') as string;
@@ -29,7 +28,6 @@ export default function setupPermissionGuard(router: Router) {
 
         if (isLogin()) {
             if (to.name === 'login') {
-                NProgress.done();
                 next({ path: '/workplace' });
             } else {
                 if (routerStore.MenuList?.length === 0) {
@@ -41,7 +39,6 @@ export default function setupPermissionGuard(router: Router) {
                         routerStore.setAppMenu(indexRouter);
                         router.addRoute(indexRouter);
                         router.addRoute(notFound);
-                        NProgress.done();
 
                         const redirect = decodeURIComponent((from.query.redirect as string) || to.path);
 
@@ -57,7 +54,6 @@ export default function setupPermissionGuard(router: Router) {
                         window.location.reload();
                     }
                 } else {
-                    NProgress.done();
                     next();
                 }
             }
@@ -73,7 +69,11 @@ export default function setupPermissionGuard(router: Router) {
                     } as LocationQueryRaw
                 });
             }
-            NProgress.done();
         }
+    })
+
+    router.afterEach((to) => {
+        setRouteEmitter(to);
+        NProgress.done();
     })
 }

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import setupRouterGuard from './guard';
 import appRouters from './routers/index'
 import NProgress from 'nprogress'; // progress bar
@@ -18,7 +18,7 @@ const defaultRouters = [{
 }]
 
 const router = createRouter({
-    history: createWebHistory(import.meta.env.VITE_MODE === 'production' ? '/ace-vue-admin/' : ''),
+    history: createWebHashHistory(import.meta.env.VITE_MODE === 'production' ? '/ace-vue-admin/' : ''),
     routes: [
         ...defaultRouters
     ]

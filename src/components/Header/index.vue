@@ -3,7 +3,7 @@
         <div class="left-size">
             <i class="icon"></i>
             <h1 class="title">Ace admin vue</h1>
-            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="toggleDrawerMenu" />
+            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="() => toggleDrawerMenu" />
         </div>
         <ul class="right-side">
             <li v-if="isDeskTop">

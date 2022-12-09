@@ -1,1 +1,0 @@
-import{c as o,b as _,i as t,o as r}from"./index.fb80edb8.js";import{_ as a}from"./plugin-vue_export-helper.21dcd24c.js";const c={},s={class:"page-view"};function n(i,p){const e=t("router-view");return r(),o("div",s,[_(e)])}var f=a(c,[["render",n],["__scopeId","data-v-3fa25804"]]);export{f as default};

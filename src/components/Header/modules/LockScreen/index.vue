@@ -81,7 +81,7 @@ onMounted(() => {
     const header: HTMLElement = document.querySelector('.ace-header') as HTMLElement
     header[`lock-screen-observer`] = new MutationObserver((e) => {
         setTimeout(() => {
-            if (e[0] && e[0].removedNodes) {
+            if (e[0] && e[0].removedNodes && e[0].removedNodes.length) {
                 if ((e[0].removedNodes[0] as HTMLElement).className === 'lock-screen') {
                     window.location.reload();
                 }

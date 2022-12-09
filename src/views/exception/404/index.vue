@@ -2,7 +2,7 @@
    <a-result class="result" status="404" subtitle="挖趣！找不到该页面.">
     <template #extra>
       <a-space>
-        <a-button type="primary" @click="goback">Back</a-button>
+        <a-button type="primary" @click="goback">返回</a-button>
       </a-space>
     </template>
   </a-result>
@@ -17,7 +17,7 @@ const goback = () => router.back();
 
 <style lang="less" scoped>
 .result {
-    margin-top: 20%;
+    padding-top: 20%;
     height: 100%;
 }
 </style>

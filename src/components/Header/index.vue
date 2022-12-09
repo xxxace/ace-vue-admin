@@ -70,7 +70,7 @@
             </li>
         </ul>
 
-        <LockScreen :locked="isLockScreen" @unlocked="() => (isLockScreen = false)" />
+        <LockScreen :locked="isLockScreen" @unlocked="handleUnlocked" />
     </header>
 </template>
 <script lang="ts" setup>
@@ -94,7 +94,7 @@ const isDark = useDarkByDefault();
 
 const toggleDark = useToggle(isDark);
 
-const isLockScreen = ref(locked ? Boolean(locked) : false);
+const isLockScreen = ref(locked ? JSON.parse(locked) : false);
 
 const handleToggleTheme = () => {
     toggleDark();
@@ -118,6 +118,12 @@ const logout = () => {
 
 const handleLockScreen = () => {
     isLockScreen.value = true
+    localStorage.setItem('locked', 'true')
+}
+
+const handleUnlocked = () => {
+    isLockScreen.value = false
+    localStorage.setItem('locked', 'false')
 }
 
 const toggleDrawerMenu = inject('toggleDrawerMenu');

@@ -17,7 +17,7 @@ const goback = () => router.back();
 
 <style lang="less" scoped>
 .result {
-    margin-top: 20%;
+    padding-top: 20%;
     height: 100%;
 }
 </style>

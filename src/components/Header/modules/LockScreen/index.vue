@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, defineProps, withDefaults } from 'vue'
+import { computed, ref, defineProps, withDefaults, onMounted, onBeforeUnmount } from 'vue'
 import { useNow, useToggle, useDateFormat } from '@vueuse/core'
 import { useUserStore } from '@/store';
 
@@ -69,10 +69,35 @@ const handleEnter = () => {
         isError.value = true
     }
 }
-window.addEventListener('storage', (e) => {
+
+const storageHanlder = (e: StorageEvent) => {
     if (e.key === 'locked' && e.oldValue === 'true' && e.newValue === null) {
         localStorage.setItem('locked', 'true')
     }
+}
+onMounted(() => {
+    window.addEventListener('storage', storageHanlder)
+
+    const header: HTMLElement = document.querySelector('.ace-header') as HTMLElement
+    header[`lock-screen-observer`] = new MutationObserver((e) => {
+        setTimeout(() => {
+            if (e[0] && e[0].removedNodes) {
+                if ((e[0].removedNodes[0] as HTMLElement).className === 'lock-screen') {
+                    window.location.reload();
+                }
+            }
+        }, 200)
+    })
+
+    header[`lock-screen-observer`].observe(header, {
+        childList: true,
+        attributes: true,
+        subtree: true
+    })
+})
+
+onBeforeUnmount(() => {
+    window.removeEventListener('storage', storageHanlder)
 })
 </script>
 

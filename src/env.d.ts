@@ -17,3 +17,7 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv
 }
+
+interface HTMLElement {
+  'lock-screen-observer': any
+}

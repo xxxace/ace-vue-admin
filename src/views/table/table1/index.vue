@@ -1,5 +1,5 @@
 <template>
-    <a-card>
+    <a-card class="ace-card">
         <a-table :columns="columns" :data="data" column-resizable :bordered="{ cell: true }"
             :pagination="{ showPageSize: true, defaultPageSize: 20 }"></a-table>
     </a-card>

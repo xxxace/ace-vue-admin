@@ -113,6 +113,7 @@ onBeforeUnmount(() => {
     backdrop-filter: blur(8px);
     cursor: pointer;
     user-select: none;
+    color: var(--color-text-1);
 
     .unlock-wrap {
         position: absolute;

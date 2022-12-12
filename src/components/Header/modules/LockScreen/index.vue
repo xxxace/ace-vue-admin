@@ -185,6 +185,20 @@ onBeforeUnmount(() => {
         }
     }
 
+    @media screen and (max-width:490px) {
+        .date-time {
+            .timer {
+                font-size: 80px;
+                font-weight: 400;
+            }
+
+            .date {
+                font-size: 34px;
+                font-weight: 500;
+            }
+        }
+    }
+
 }
 
 .fade-enter-active,

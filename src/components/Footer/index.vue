@@ -1,6 +1,6 @@
 <template>
     <div class="ace-footer">
-        Ace admin vue
+        © 2022，made with 💖 by &nbsp<b>a_ce</b>
     </div>
 </template>
 
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     height: 40px;
-    color: var(--color-text-2);
+    color: var(--color-text-3);
     text-align: center;
 }
 </style>

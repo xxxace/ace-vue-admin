@@ -3,7 +3,7 @@
         <div class="left-size">
             <i class="icon"></i>
             <h1 class="title">Ace admin vue</h1>
-            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="() => toggleDrawerMenu" />
+            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="(toggleDrawerMenu as Function)" />
         </div>
         <ul class="right-side">
             <li v-if="isDeskTop">
@@ -132,6 +132,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
 .ace-header {
     display: flex;
     height: 100%;
+    padding-right: 20px;
     border-bottom: 1px solid var(--color-border);
     justify-content: space-between;
 
@@ -164,12 +165,14 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
         display: flex;
         list-style: none;
 
-        padding-right: 20px;
-
         li {
             display: flex;
             align-items: center;
             padding: 0 10px;
+
+            &:last-child {
+                padding: 0 0 0 10px;
+            }
 
             .nav-btn {
                 border-color: rgb(var(--gray-2));

@@ -173,6 +173,7 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
 
             .nav-btn {
                 border-color: rgb(var(--gray-2));
+                background-color: rgb(var(--gray-2));
                 color: rgb(var(--gray-8));
                 font-size: 16px;
             }

@@ -1,10 +1,10 @@
 <template>
     <div class="search-modal">
-        <a-button class="search-btn" @click="handleClick">
+        <a-button class="search-btn" @click="handleClick" shape="round">
             <template #icon>
                 <icon-search style="color:var(--color-text-1)" />
             </template>
-            搜索
+            搜 索
         </a-button>
         <a-modal v-model:visible="visible" top="150px" :closable="false" :footer="false" modal-class="my-modal"
             :align-center="false">

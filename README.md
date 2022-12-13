@@ -1,7 +1,7 @@
 # ace-vue-admin
 
 一个后台管理系统模板<br/>
-技术结构： `vue` `vue-router` `vite` `typescript` `pinia` `arco-design-vue` `vueuse/core` `mitt`
+技术结构： `vue` `vue-router` `vite` `typescript` `pinia` `arco-design-vue` `vueuse/core` `mitt` `echarts` `vue-echarts`
 
 ## Demo link
 

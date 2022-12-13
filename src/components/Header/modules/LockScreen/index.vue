@@ -1,6 +1,6 @@
 <template>
     <Transition name="fade" mode="out-in">
-        <div v-if="props.locked" class="lock-screen" @click.self="() => toggleShowUnlock()">
+        <div v-if="props.locked" class="lock-screen" @click.self="handleShowUnlock">
             <Transition name="fade" mode="out-in">
                 <div v-if="showUnlock" class="unlock-wrap">
                     <div class="unlock">
@@ -9,7 +9,7 @@
                         </a-avatar>
                         <div style="font-size: 48px;margin:4px 0 24px 0;">{{ user.name }}</div>
                         <div class="password" ref="passwordWrapper">
-                            <a-input-password v-model="password" placeholder="密码 123456"
+                            <a-input-password v-model="password" placeholder="密码 123456" autofocus
                                 @focus="() => passwordWrapper?.classList.add('foucs')"
                                 @blur="() => passwordWrapper?.classList.remove('foucs')" @press-enter="handleEnter" />
                             <a-button @click="handleEnter">
@@ -55,6 +55,8 @@ const time = useDateFormat(now, 'HH : mm')
 const date = useDateFormat(now, 'MM月DD日')
 const week = useDateFormat(now, 'd')
 const weekTrans = (i: string | number) => weeks[Number(i)];
+
+const handleShowUnlock = () => toggleShowUnlock()
 
 const handleEnter = () => {
     if (password.value === '123456') {
@@ -124,6 +126,7 @@ onBeforeUnmount(() => {
         background-color: rgba(51, 51, 51, 0.1);
         z-index: 999999;
         backdrop-filter: blur(4px);
+        -webkit-tap-highlight-color: transparent;
 
         .unlock {
             display: flex;

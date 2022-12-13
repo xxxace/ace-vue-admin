@@ -18,4 +18,14 @@
     font-weight: 500;
     color: var(--color-text-1);
 }
+
+@media screen and (max-width: 400px) {
+    .no-found {
+        font-size: 28px;
+
+        &>div:first-child {
+            margin-bottom: 10px;
+        }
+    }
+}
 </style>

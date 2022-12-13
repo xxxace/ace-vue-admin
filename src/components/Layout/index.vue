@@ -34,7 +34,7 @@ import AceFooter from '@/components/Footer/index.vue';
 
 useResponsive(true);
 const appStore = useAppStore();
-const drawerVisible = ref(true);
+const drawerVisible = ref(false);
 const isDesktop = computed(() => appStore.appDevice === 'desktop');
 
 provide('toggleDrawerMenu', () => {

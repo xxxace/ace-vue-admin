@@ -3,7 +3,8 @@
         <div class="left-size">
             <i class="icon"></i>
             <h1 class="title">Ace admin vue</h1>
-            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="(toggleDrawerMenu as Function)" />
+            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px"
+                @click="(toggleDrawerMenu as Function)" />
         </div>
         <ul class="right-side">
             <li v-if="isDeskTop">
@@ -158,6 +159,18 @@ const toggleDrawerMenu = inject('toggleDrawerMenu');
 
         .toggle-icon {
             cursor: pointer;
+        }
+
+        @media screen and (max-width: 400px) {
+            .icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .title {
+                margin: 0 8px;
+                font-size: 14px;
+            }
         }
     }
 

@@ -1,14 +1,13 @@
 import { resolve } from 'path'
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import configStyleImportPlugin from './plugin/styleImport'
 
-const base = process.env.NODE_ENV ? '/ace-vue-admin/' : '/'
-
 // https://vitejs.dev/config/
-export default defineConfig({
-  base,
+export default {
+  build: {
+    cssTarget: ["safari14"]
+  },
   plugins: [vue(), vueJsx(), configStyleImportPlugin()],
   resolve: {
     alias: [{
@@ -20,8 +19,5 @@ export default defineConfig({
       replacement: 'vue/dist/vue.esm-bundler.js',
     }],
     extensions: ['.ts', '.js']
-  },
-  server: {
-    port: 8999
   }
-})
+}

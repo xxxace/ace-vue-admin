@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "composite": true,
     "module": "esnext",
     "moduleResolution": "node"
   },
-  "include": ["config/**/*.ts"]
+  "include": [
+    "config/**/*.ts"
+  ]
 }

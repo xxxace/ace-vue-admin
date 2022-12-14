@@ -1,8 +1,7 @@
 <template>
     <div class="login">
         <div class="logo">
-            <img alt="logo"
-                src="//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image" />
+            <img alt="logo" src="@/assets/avatar.jpg" />
             <div class="logo-text">Ace admin vue</div>
         </div>
         <div class="container">
@@ -24,17 +23,21 @@ import Footer from '@/components/Footer/index.vue';
 
     .logo {
         display: flex;
-        height: 60px;
+        height: 48px;
         max-width: 1200px;
         margin: 0 auto;
+        padding: 4px;
+        box-sizing: border-box;
 
         img {
-            width: 60px;
+            width: 40px;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(0, 0, 0, .4);
         }
 
         .logo-text {
             margin-left: 10px;
-            line-height: 60px;
+            line-height: 40px;
             color: var(--color-text-1);
             font-size: 20px;
         }
@@ -42,7 +45,7 @@ import Footer from '@/components/Footer/index.vue';
 
     .container {
         position: relative;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 48px);
         padding: 0;
         margin: 0;
     }

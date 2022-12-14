@@ -11,14 +11,5 @@ export default defineConfig({
                 autoprefixer()
             ]
         }
-    },
-    build: {
-        rollupOptions: {
-            output: {
-                manualChunks: {
-                    echarts: ['echarts']
-                }
-            }
-        }
     }
 })

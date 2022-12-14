@@ -16,5 +16,22 @@ export default {
       replacement: 'vue/dist/vue.esm-bundler.js',
     }],
     extensions: ['.ts', '.js']
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          echarts: ['echarts'],
+          layout: [
+            resolve(__dirname, '../src/components/Layout/index.vue'),
+            resolve(__dirname, '../src/components/Layout/PageView.vue'),
+            resolve(__dirname, '../src/components/Header/index.vue'),
+            resolve(__dirname, '../src/components/Footer/index.vue'),
+            resolve(__dirname, '../src/components/Menu/index.vue'),
+            resolve(__dirname, '../src/components/NavBar/index.vue')
+          ]
+        }
+      }
+    }
   }
 }

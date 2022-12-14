@@ -1,7 +1,7 @@
 <template>
     <header class="ace-header">
         <div class="left-size">
-            <i class="icon"></i>
+            <a-avatar :size="32" shape="square">Ace</a-avatar>
             <h1 class="title">Ace admin vue</h1>
             <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px"
                 @click="(toggleDrawerMenu as Function)" />

@@ -5,9 +5,6 @@ import configStyleImportPlugin from './plugin/styleImport'
 
 // https://vitejs.dev/config/
 export default {
-  build: {
-    cssTarget: ["safari14"]
-  },
   plugins: [vue(), vueJsx(), configStyleImportPlugin()],
   resolve: {
     alias: [{

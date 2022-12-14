@@ -5,11 +5,20 @@ import autoprefixer from 'autoprefixer'
 export default defineConfig({
     ...baseConfig,
     base: '/ace-vue-admin',
-    css:{
-        postcss:{
-            plugins:[
+    css: {
+        postcss: {
+            plugins: [
                 autoprefixer()
             ]
+        }
+    },
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    echarts: ['echarts']
+                }
+            }
         }
     }
 })

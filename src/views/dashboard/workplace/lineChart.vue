@@ -3,38 +3,12 @@
 </template>
   
 <script>
-import * as echarts from 'echarts'
-import { use } from "echarts/core";
-import { CanvasRenderer } from "echarts/renderers";
-import { LineChart } from "echarts/charts";
-import {
-    GridComponent,
-    AxisPointerComponent,
-    TitleComponent,
-    TooltipComponent,
-    LegendComponent
-} from "echarts/components";
-import VChart, { THEME_KEY } from "vue-echarts";
+import { graphic } from 'echarts'
 import { getPreviousDate } from '@/utils'
 import { ref, defineComponent } from "vue";
 
-use([
-    GridComponent,
-    AxisPointerComponent,
-    CanvasRenderer,
-    LineChart,
-    TitleComponent,
-    TooltipComponent,
-    LegendComponent
-]);
-
-
-
 export default defineComponent({
     name: "LineChart",
-    components: {
-        VChart
-    },
     setup: () => {
 
         const option = ref({
@@ -92,7 +66,7 @@ export default defineComponent({
                     lineStyle: {
                         normal: {
                             width: 3,
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            color: new graphic.LinearGradient(0, 0, 0, 1, [
                                 {
                                     offset: 0,
                                     color: "#165DFF",
@@ -112,7 +86,7 @@ export default defineComponent({
                     // },
                     areaStyle: {
                         normal: {
-                            color: new echarts.graphic.LinearGradient(
+                            color: new graphic.LinearGradient(
                                 0,
                                 0,
                                 0,

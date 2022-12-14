@@ -15,6 +15,7 @@ import {
     LegendComponent
 } from "echarts/components";
 import VChart, { THEME_KEY } from "vue-echarts";
+import { getPreviousDate } from '@/utils'
 import { ref, defineComponent } from "vue";
 
 use([
@@ -27,12 +28,15 @@ use([
     LegendComponent
 ]);
 
+
+
 export default defineComponent({
     name: "LineChart",
     components: {
         VChart
     },
     setup: () => {
+
         const option = ref({
             tooltip: {
                 trigger: 'axis',
@@ -61,7 +65,7 @@ export default defineComponent({
                     show: false,
                     alignWithLabel: true
                 },
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                data: getPreviousDate(new Date())
             },
             yAxis: {
                 type: 'value',

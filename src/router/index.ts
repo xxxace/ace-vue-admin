@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import setupRouterGuard from './guard';
-import appRouters from './routers/index'
+// import appRouters from './routers/index'
 import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css';
 

@@ -15,6 +15,6 @@ export const login = (data: LoginData) => {
 
 export const getMenuList = () => {
     return new Promise(resolve => {
-        setTimeout(() => resolve(successResponseWrap(menuList)), 800)
+        resolve(successResponseWrap(menuList))
     })
 }

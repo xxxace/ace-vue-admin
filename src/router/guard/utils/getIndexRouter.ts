@@ -1,5 +1,5 @@
 import { RouterRaw } from "@/store/modules/router/type";
-
+import { Component, defineAsyncComponent } from "vue";
 const modules = import.meta.glob(`../../../views/**/*.vue`);
 const components = import.meta.glob(`../../../components/**/*.vue`);
 
@@ -28,8 +28,8 @@ function getChildRouters(list: RouterRaw[]) {
             component = components['../../../components/Layout/PageView.vue']
         }
 
-        if (e.component&&!component) {
-            component = modules[`../../../views/${e.component}.vue`]
+        if (e.component && !component) {
+            component = defineAsyncComponent(modules[`../../../views/${e.component}.vue`] as () => Promise<{ default: Component }>)
         }
 
         let menu = {

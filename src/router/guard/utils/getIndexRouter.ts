@@ -29,7 +29,7 @@ function getChildRouters(list: RouterRaw[]) {
         }
 
         if (e.component && !component) {
-            component = defineAsyncComponent(modules[`../../../views/${e.component}.vue`] as () => Promise<{ default: Component }>)
+            component = modules[`../../../views/${e.component}.vue`]
         }
 
         let menu = {

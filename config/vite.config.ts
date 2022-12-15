@@ -2,10 +2,11 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import configStyleImportPlugin from './plugin/styleImport'
+import { compression } from 'vite-plugin-compression2'
 
 // https://vitejs.dev/config/
 export default {
-  plugins: [vue(), vueJsx(), configStyleImportPlugin()],
+  plugins: [vue(), vueJsx(), compression(), configStyleImportPlugin()],
   resolve: {
     alias: [{
       find: '@',
@@ -32,6 +33,7 @@ export default {
           ]
         }
       }
-    }
+    },
+    reportCompressedSize: false
   }
 }

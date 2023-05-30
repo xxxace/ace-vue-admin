@@ -3,8 +3,7 @@
         <div class="left-size">
             <a-avatar :size="32" shape="square">Ace</a-avatar>
             <h1 class="title">Ace admin vue</h1>
-            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px"
-                @click="(toggleDrawerMenu as Function)" />
+            <icon-menu-unfold v-if="!isDeskTop" class="toggle-icon" size="26px" @click="(toggleDrawerMenu as Function)" />
         </div>
         <ul class="right-side">
             <li v-if="isDeskTop">
@@ -21,12 +20,16 @@
             </li>
             <li>
                 <a-tooltip :content="`点击切换为${isDark ? '亮色' : '暗黑'}模式`">
-                    <a-button class="nav-btn" type="outline" shape="circle" @click="handleToggleTheme">
-                        <template #icon>
-                            <icon-sun-fill v-if="isDark" />
-                            <icon-moon-fill v-else />
+                    <ThemeToggler>
+                        <template #default="{ toggle }">
+                            <a-button class="nav-btn" type="outline" shape="circle" @click="toggle">
+                                <template #icon>
+                                    <icon-sun-fill v-if="isDark" />
+                                    <icon-moon-fill v-else />
+                                </template>
+                            </a-button>
                         </template>
-                    </a-button>
+                    </ThemeToggler>
                 </a-tooltip>
             </li>
             <li v-if="isDeskTop">
@@ -81,8 +84,9 @@ import { useAppStore, useUserStore } from '@/store';
 import LockScreen from './modules/LockScreen/index.vue';
 import SearchModal from './modules/SearchModal/index.vue';
 import { Modal } from '@arco-design/web-vue';
-import { useToggle, useFullscreen } from '@vueuse/core';
+import { useFullscreen } from '@vueuse/core';
 import useDarkByDefault from '@/hooks/useDarkByDefault'
+import ThemeToggler from './themeToggler.vue';
 
 const router = useRouter();
 const appStore = useAppStore();
@@ -93,13 +97,9 @@ const isDeskTop = computed(() => appStore.appDevice === 'desktop')
 
 const isDark = useDarkByDefault();
 
-const toggleDark = useToggle(isDark);
 
 const isLockScreen = ref(locked ? JSON.parse(locked) : false);
 
-const handleToggleTheme = () => {
-    toggleDark();
-}
 
 const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 

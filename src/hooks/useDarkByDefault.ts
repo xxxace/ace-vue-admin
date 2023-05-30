@@ -6,6 +6,15 @@ export default function useDarkByDefault() {
         attribute: 'arco-theme',
         valueDark: 'dark',
         valueLight: 'light',
-        storageKey: 'arco-theme'
+        storageKey: 'arco-theme',
+        onChanged: (isDark) => {
+            if (isDark) {
+                document.documentElement.classList.add('dark')
+                document.body.setAttribute('arco-theme', 'dark')
+            } else {
+                document.documentElement.classList.remove('dark')
+                document.body.setAttribute('arco-theme', 'light')
+            }
+        }
     });
 }

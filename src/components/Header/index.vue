@@ -19,18 +19,18 @@
                 </a-tooltip>
             </li>
             <li>
-                <a-tooltip :content="`点击切换为${isDark ? '亮色' : '暗黑'}模式`">
-                    <ThemeToggler>
-                        <template #default="{ toggle }">
+                <ThemeToggler>
+                    <template #default="{ toggle, isDark }">
+                        <a-tooltip :content="`点击切换为${isDark ? '亮色' : '暗黑'}模式`">
                             <a-button class="nav-btn" type="outline" shape="circle" @click="toggle">
                                 <template #icon>
                                     <icon-sun-fill v-if="isDark" />
                                     <icon-moon-fill v-else />
                                 </template>
                             </a-button>
-                        </template>
-                    </ThemeToggler>
-                </a-tooltip>
+                        </a-tooltip>
+                    </template>
+                </ThemeToggler>
             </li>
             <li v-if="isDeskTop">
                 <a-tooltip :content="`点击${isFullscreen ? '退出' : '切换'}全屏模式`">
@@ -94,9 +94,6 @@ const userStore = useUserStore();
 const locked = localStorage.getItem('locked')
 const user = computed(() => userStore)
 const isDeskTop = computed(() => appStore.appDevice === 'desktop')
-
-const isDark = useDarkByDefault();
-
 
 const isLockScreen = ref(locked ? JSON.parse(locked) : false);
 

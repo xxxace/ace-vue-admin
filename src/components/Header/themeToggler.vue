@@ -1,5 +1,5 @@
 <template>
-    <slot :toggle="handleTransition"></slot>
+    <slot :toggle="handleTransition" :isDark="isDark"></slot>
 </template>
 
 <script lang="ts" setup>

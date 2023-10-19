@@ -1,6 +1,6 @@
 <template>
     <div class="ace-layout">
-        <header class="header">
+        <header class="header-wrapper">
             <AceHeader />
         </header>
         <div class="container">
@@ -45,7 +45,7 @@ provide('toggleDrawerMenu', () => {
 .ace-layout {
     height: 100vh;
 
-    .header {
+    .header-wrapper {
         height: 60px;
         background-color: var(--color-bg-2);
     }

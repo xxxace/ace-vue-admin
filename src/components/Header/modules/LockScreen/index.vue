@@ -80,15 +80,29 @@ const storageHanlder = (e: StorageEvent) => {
 onMounted(() => {
     window.addEventListener('storage', storageHanlder)
 
-    const header: HTMLElement = document.querySelector('.ace-header') as HTMLElement
+    const header: HTMLElement = document.querySelector('.header-wrapper') as HTMLElement
     header[`lock-screen-observer`] = new MutationObserver((e) => {
+        console.log(e[0])
         setTimeout(() => {
-            if (e[0] && e[0].removedNodes && e[0].removedNodes.length) {
-                if ((e[0].removedNodes[0] as HTMLElement).className === 'lock-screen') {
+            const mutationRecord: MutationRecord = e[0]
+            if (mutationRecord) {
+                // if (mutationRecord.removedNodes && mutationRecord.removedNodes.length) {
+                //     console.log((mutationRecord.removedNodes[0] as HTMLElement))
+
+                //     if ((mutationRecord.removedNodes[0] as HTMLElement).className.includes("lock-screen")) {
+                //         window.location.reload();
+                //         return
+                //     }
+                // }
+
+                const target = mutationRecord.target as HTMLElement
+                if (target.nodeName === 'HEADER') {
+                    window.location.reload();
+                } else if (target.className.includes("lock-screen")) {
                     window.location.reload();
                 }
             }
-        }, 200)
+        }, 80)
     })
 
     header[`lock-screen-observer`].observe(header, {

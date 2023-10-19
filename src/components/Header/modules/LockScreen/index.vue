@@ -86,9 +86,7 @@ onMounted(() => {
             const mutationRecord: MutationRecord = e[0]
             if (mutationRecord) {
                 const target = mutationRecord.target as HTMLElement
-                if (target.nodeName === 'HEADER') {
-                    window.location.reload();
-                } else if (target.className.includes("lock-screen")) {
+                if (target.nodeName === 'HEADER' || target.className.includes("lock-screen")) {
                     window.location.reload();
                 }
             }
